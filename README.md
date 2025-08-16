@@ -1,39 +1,60 @@
-![logo_ironhack_blue 7](https://user-images.githubusercontent.com/23629340/40541063-a07a0a8a-601a-11e8-91b5-2f13e4e6b441.png)
+# 📰 Fake News Classification – NLP Project
 
-# PROJECT | Natural Language Processing Challenge
+![Ironhack Logo](https://user-images.githubusercontent.com/23629340/40541063-a07a0a8a-601a-11e8-91b5-2f13e4e6b441.png)
 
-## Introduction
+## 📌 Project Overview
+This project applies **Natural Language Processing (NLP)** and **Machine Learning** to classify news articles as **REAL (0)** or **FAKE (1)**.  
 
-Learning how to process text is a skill required for Data Scientists/AI Engineers. 
+We compare different models (Logistic Regression, Naive Bayes, Random Forest, Linear SVC, Word2Vec embeddings) and evaluate their performance. The final best-performing model is deployed and tested.
 
-In this project, you will put these skills into practice to identify whether a news headline is real or fake news.
+---
 
-## Project Overview
+## 📂 Dataset
+The dataset (`dataset/data.csv`) contains ~40,000 news articles with:
+- `label`: 0 = fake, 1 = real  
+- `title`: headline  
+- `text`: article body  
+- `subject`: topic/category  
+- `date`: publication date  
 
-In the file `dataset/data.csv`, you will find a dataset containing news articles with the following columns:
+👉 For predictions, we use `dataset/validation_data.csv` where labels are `2` and must be replaced by model predictions (`0` or `1`).
 
-- **`label`**: 0 if the news is fake, 1 if the news is real.
-- **`title`**: The headline of the news article.
-- **`text`**: The full content of the article.
-- **`subject`**: The category or topic of the news.
-- **`date`**: The publication date of the article.
+---
 
-Your goal is to build a classifier that is able to distinguish between the two.
+## ⚙️ Approach
+1. **Data Cleaning & Preprocessing**
+   - Removed `subject` and `date` columns (irrelevant for classification).
+   - Combined `title` and `text`.
+   - Tokenization, stopword removal, lowercasing.
+2. **Feature Engineering**
+   - TF-IDF vectorization.
+   - Word2Vec embeddings (tested separately).
+3. **Model Training**
+   - Logistic Regression, Naive Bayes, Random Forest, Linear SVC.
+   - Hyperparameter tuning, class balance checked.
+4. **Evaluation**
+   - Accuracy, Precision, Recall, F1.
+   - Confusion matrices and metrics comparison.
+5. **Deployment**
+   - Streamlit app for interactive demo.
+   - Predictions for `validation_data.csv`.
 
-Once you have a classifier built, then use it to predict the labels for `dataset/validation_data.csv`. Generate a new file
-where the label `2` has been replaced by `0` (fake) or `1` (real) according to your model. Please respect the original file format, 
-do not include extra columns, and respect the column separator. 
+---
 
-Please ensure to split the `data.csv` into **training** and **test** datasets before using it for model training or evaluation.
+## 🏆 Results
+- **Linear SVC + TF-IDF** performed best:
+  - Accuracy: **99.42%**
+  - Precision: **99.40%**
+  - Recall: **99.45%**
+  - F1: **99.43%**
+- Logistic Regression also strong (98.45%).
+- Word2Vec embeddings underperformed TF-IDF slightly.
 
-## Guidance
+---
 
-Like in a real life scenario, you are able to make your own choices and text treatment.
-Use the techniques you have learned and the common packages to process this data and classify the text.
-
-## Deliverables
-
-1. **Python Code:** Provide well-documented Python code that conducts the analysis.
-2. **Predictions:** A csv file in the same format as `validation_data.csv` but with the predicted labels (0 or 1)
-3. **Accuracy estimation:** Provide the teacher with your estimation of how your model will perform.
-4. **Presentation:** You will present your model in a 10-minute presentation. Your teacher will provide further instructions.
+## 📊 Deliverables
+1. **Code** → training & evaluation notebooks/scripts.  
+2. **Predictions** → `validation_predictions.csv` (labels replaced with model outputs).  
+3. **Accuracy Estimation** → reported test metrics (see Results).  
+4. **Presentation** → PowerPoint/PDF slides summarizing methodology & results.  
+5. **Streamlit App** → simple web interface to test the model.
